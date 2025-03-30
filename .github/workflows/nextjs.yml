@@ -16,10 +16,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-        
-      - name: Install dependencies
+
+      - name: Install polyfill for crypto
         run: |
-          npm install
+          npm install --save-dev node-polyfill-webpack-plugin
+        
+      - name: Build Next.js site
+        run: |
+          npm run build
+        env:
+          NODE_OPTIONS: --experimental-global-webcrypto
 
       - name: Build Next.js site
         run: |
